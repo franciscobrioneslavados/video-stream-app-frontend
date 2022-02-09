@@ -13,6 +13,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import config from "../../config";
+
+const api_rest = config.api_url;
 
 function Copyright(props) {
   return (
@@ -44,7 +47,7 @@ export default function SignUp() {
       email: data.get("email"),
       password: data.get("password"),
     };
-    await axios.post("http://localhost:3002/api/v1/user/signup", form);
+    await axios.post(`${api_rest}/api/user/signup`, form);
     navigate("/");
   };
 

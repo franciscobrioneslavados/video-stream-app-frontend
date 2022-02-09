@@ -8,6 +8,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import config from "../../config";
+
+const api_rest = config.api_url;
 
 export default function VideoList({ setLoggedIn }) {
   const [videos, setVideos] = React.useState([]);
@@ -16,7 +19,7 @@ export default function VideoList({ setLoggedIn }) {
     async function fetchData() {
       try {
         const token = localStorage.getItem("token");
-        const { data } = await axios.get("http://localhost:3002/api/v1/video", {
+        const { data } = await axios.get(`${api_rest}/api/video`, {
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -50,10 +53,11 @@ export default function VideoList({ setLoggedIn }) {
                       {video.uploadDate}
                     </Typography>
                   </CardContent>
+                  
                   <CardMedia
                     component="img"
                     sx={{ width: 160, display: { xs: "none", sm: "block" } }}
-                    image={`http://127.0.0.1:3002/${video.coverImage}`}
+                    image={video.coverImage}
                     alt="alt"
                   />
                 </Card>

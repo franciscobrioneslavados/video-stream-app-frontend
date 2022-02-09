@@ -10,6 +10,9 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
+import config from "../../config";
+
+const api_rest = config.api_url;
 
 const style = {
   position: "absolute",
@@ -70,7 +73,7 @@ export default function SearchAppBar({ isLoggedIn }) {
     formData.append("video", video);
     formData.append("cover", cover);
     const token = localStorage.getItem("token");
-    await axios.post("http://localhost:3002/api/v1/video", formData, {
+    await axios.post(`${api_rest}/api/video`, formData, {
       headers: {
         Authorization: "Bearer " + token,
       },

@@ -11,7 +11,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import config from "../../config";
 
+const api_rest = config.api_url;
 const theme = createTheme();
 
 export default function SignIn(props) {
@@ -27,7 +29,7 @@ export default function SignIn(props) {
       password: formData.get("password"),
     };
     const { data } = await axios.post(
-      "http://localhost:3002/api/v1/user/signin",
+      `${api_rest}/api/user/signin`,
       form
     );
     if (data.status === parseInt("401")) {
