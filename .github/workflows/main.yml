@@ -16,3 +16,4 @@ jobs:
           heroku_app_name: "video-stream-app-frontend"
           heroku_email: "franciscobrioneslavados@gmail.com"
           usedocker: true
+          procfile: "web: nginx -g daemon off"
