@@ -62,18 +62,26 @@ export default function SearchAppBar({ isLoggedIn }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [video, setVideo] = React.useState("");
-  const [cover, setCover] = React.useState("");
-  const [title, setTitle] = React.useState("");
+
+  const [video, setVideo] = React.useState({
+    title: '',
+    video: '',
+    coverImage: ''
+  });
+
+  const addDataInMemory = e => {
+    const {name, value} = e.target;
+    setVideo(prev => ({
+        ...prev,
+        [name]: value
+    }))
+  }
 
   const submitForm = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("video", video);
-    formData.append("cover", cover);
+    console.log('video', video)
     const token = localStorage.getItem("token");
-    await axios.post(`${api_rest}/api/video`, formData, {
+    await axios.post(`${api_rest}/api/video`, video, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -81,8 +89,8 @@ export default function SearchAppBar({ isLoggedIn }) {
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
+      <AppBar position="fixed">
+        <Toolbar >
           <Typography
             variant="h6"
             noWrap
@@ -130,7 +138,8 @@ export default function SearchAppBar({ isLoggedIn }) {
                           id="title"
                           name="title"
                           autoFocus
-                          onChange={(e) => setTitle(e.target.value)}
+                          onChange={addDataInMemory}
+                          value={video.title}
                         />
                         <label>Select Video:</label>
                         <TextField
@@ -139,20 +148,18 @@ export default function SearchAppBar({ isLoggedIn }) {
                           fullWidth
                           id="video"
                           name="video"
-                          autoFocus
-                          type="file"
-                          onChange={(e) => setVideo(e.target.files[0])}
+                          onChange={addDataInMemory}
+                          value={video.video}
                         />
                         <label>Select Cover Image:</label>
                         <TextField
-                          autoFocus
                           margin="normal"
                           required
                           fullWidth
                           name="coverImage"
-                          type="file"
                           id="coverImage"
-                          onChange={(e) => setCover(e.target.files[0])}
+                          onChange={addDataInMemory}
+                          value={video.cover}
                         />
                         <Button
                           type="submit"
@@ -161,6 +168,15 @@ export default function SearchAppBar({ isLoggedIn }) {
                           sx={{ mt: 3, mb: 2 }}
                         >
                           Upload
+                        </Button>
+                        <Button
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          onClick={handleClose}
+                          color="secondary"
+                        >
+                          Close
                         </Button>
                       </Box>
                     </Typography>

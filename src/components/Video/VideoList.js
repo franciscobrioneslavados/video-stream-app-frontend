@@ -26,7 +26,7 @@ export default function VideoList({ setLoggedIn }) {
         });
         setVideos(data);
       } catch {
-        setLoggedIn(false);
+        //setLoggedIn(false);
         navigate("/");
       }
     }

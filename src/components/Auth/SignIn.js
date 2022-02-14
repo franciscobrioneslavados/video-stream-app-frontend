@@ -37,7 +37,7 @@ export default function SignIn(props) {
     } else {
       localStorage.setItem("token", data.token);
       setIsLoggedIn(true);
-      navigate("/video");
+      navigate("/");
     }
   };
   return (
