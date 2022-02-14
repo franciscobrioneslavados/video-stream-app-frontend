@@ -4,8 +4,8 @@ const local = {
 };
 
 const prod = {
-  api_url: "",
-  frontend_url: "",
+  api_url: "https://app-video-stream-backend.herokuapp.com",
+  frontend_url: "https://app-video-stream-frontend.herokuapp.com/",
 };
 
 const config = process.env.REACT_APP_STAGE === "production" ? prod : local;
