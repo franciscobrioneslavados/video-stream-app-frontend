@@ -187,6 +187,7 @@ export default function SearchAppBar({ isLoggedIn }) {
           )}
         </Toolbar>
       </AppBar>
+      <div style={{margin:'5em'}}></div>
     </Box>
   );
 }
