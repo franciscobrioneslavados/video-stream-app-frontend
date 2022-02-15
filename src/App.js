@@ -2,7 +2,9 @@ import { useState } from "react";
 import Index from "./components/Index";
 
 function App() {
-  const [isLoggedIn, setLoggedIn ] = useState(false);
+  const initialState = () => window.localStorage.getItem('isLoggedIn') || false;
+
+  const [isLoggedIn, setLoggedIn ] = useState(initialState);
 
   return (
     <>

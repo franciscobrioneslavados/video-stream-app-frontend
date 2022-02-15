@@ -17,6 +17,7 @@ const api_rest = config.api_url;
 const theme = createTheme();
 
 export default function SignIn(props) {
+  
   const { setIsLoggedIn } = props;
   const [errrorMessage, setErrorMessage] = React.useState("");
   let navigate = useNavigate();
@@ -36,9 +37,10 @@ export default function SignIn(props) {
       setErrorMessage(data.response);
     } else {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("isLoggedIn", true)
       setIsLoggedIn(true);
       navigate("/video");
-    }
+    } 
   };
   return (
     <ThemeProvider theme={theme}>

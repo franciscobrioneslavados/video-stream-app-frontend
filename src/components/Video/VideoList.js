@@ -13,7 +13,6 @@ import config from "../../config";
 const api_rest = config.api_url;
 
 export default function VideoList({ setLoggedIn }) {
-
   const [videos, setVideos] = React.useState([]);
   const navigate = useNavigate();
 
