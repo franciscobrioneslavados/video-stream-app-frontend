@@ -13,13 +13,15 @@ export default function Index(props) {
     const { isLoggedIn, setLoggedIn } = props
     return (
         <div>
-            <Header isLoggedIn={isLoggedIn} />
+            <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setLoggedIn} />
             <BrowserRouter>
                 {isLoggedIn ?
                     <Routes>
                         <Route path="/video" element={<VideoList setLoggedIn={setLoggedIn}/>}>
                         </Route>
                         <Route path="/video/:id" element={<Video setLoggedIn={setLoggedIn}/>}>
+                        </Route>
+                        <Route path="/" element={<VideoList setLoggedIn={setLoggedIn}/>}>
                         </Route>
                     </Routes>
                     :

@@ -11,6 +11,8 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import config from "../../config";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const api_rest = config.api_url;
 
@@ -58,7 +60,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar({ isLoggedIn }) {
+export default function SearchAppBar({ isLoggedIn, setIsLoggedIn }) {
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClickMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -87,6 +99,13 @@ export default function SearchAppBar({ isLoggedIn }) {
       },
     });
   };
+
+  const logoutButton = () => {
+    setIsLoggedIn(false);
+    localStorage.setItem("isLoggedIn", false)
+    localStorage.setItem("token", null);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -107,9 +126,8 @@ export default function SearchAppBar({ isLoggedIn }) {
                   inputProps={{ "aria-label": "search" }}
                 />
               </Search>
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
               <div>
-                <Button variant="contained" onClick={handleOpen}>
+                <Button variant="contained" onClick={handleOpen} sx={{ml:'1em'}}>
                   Add New
                 </Button>
                 <Modal
@@ -182,6 +200,28 @@ export default function SearchAppBar({ isLoggedIn }) {
                     </Typography>
                   </Box>
                 </Modal>
+              </div>
+              <div>
+                <Button
+                  id="basic-button"
+                  aria-controls={openMenu ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={openMenu ? 'true' : undefined}
+                  onClick={handleClickMenu}
+                >
+                  <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={openMenu}
+                  onClose={handleCloseMenu}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem onClick={logoutButton}>Logout</MenuItem>
+                </Menu>
               </div>
             </>
           )}
